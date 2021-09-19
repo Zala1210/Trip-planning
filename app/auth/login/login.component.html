@@ -1,0 +1,37 @@
+
+
+
+<div fxLayoutAlign="center center" fxFlexFill>
+   <mat-card fxFlex="30">
+       <mat-toolbar>-LOGIN-</mat-toolbar>
+        <form fxLayout="column" fxLayoutGap="30px"  fxLayoutAlign="stretch"  #f="ngForm" (ngSubmit)="onSubmit(f)" fxFlexFill>
+            
+            <mat-form-field>
+                <input type="text" matInput placeholder="Input First Name" ngModel name="firstName" >
+            </mat-form-field>
+
+            <mat-form-field hintLabel="Password must contain at least 5 characters!   ">
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Input password" ngModel name="password" #lzInput="ngModel" required minlength="5">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-hint align="end"> {{ lzInput.value?.length }} / 5 </mat-hint>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <input type="email" matInput placeholder="Input email" ngModel name="email" email required #emailInput="ngModel">
+                <mat-error *ngIf="emailInput.hasError('required')">Field is empty!</mat-error>
+                <mat-error *ngIf="!emailInput.hasError('required')">Plese provide correct email format.</mat-error>
+            </mat-form-field>
+
+            <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+            
+
+            <mat-label *ngIf="errorExists">{{ errorText }} </mat-label>
+
+            <p>Need to sign up? <a routerLink = "/signup"> Sign up here!</a></p>
+
+
+        </form>
+    </mat-card>
+</div>
