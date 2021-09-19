@@ -1,0 +1,112 @@
+
+
+ <mat-sidenav-container>
+  
+
+   <!-- If we minimize the screen these options show in a sidenav bar -->
+    <mat-sidenav #sidenav opened="false">
+      <mat-nav-list fxLayoutGap="20px">
+        <a *ngIf="logged == false" mat-list-item routerLink="/signup" (click)="sidenav.close()">
+          <mat-icon>face</mat-icon>
+          Signup
+        </a>
+        <a *ngIf="logged == false" mat-list-item routerLink="/login" (click)="sidenav.close()">
+          <mat-icon>input</mat-icon>
+          Login
+        </a>
+        
+        <a *ngIf="logged == true" mat-list-item routerLink="/" (click)="sidenav.close()">
+          <mat-icon>exit_to_app</mat-icon>
+          Logout
+        </a>
+        <span *ngIf="logged == true"  mat-list-item class="material-icons">
+          
+          <mat-select >
+           
+          <mat-option value ="setting">
+              Settings
+          </mat-option>
+         
+          <mat-option value ="logout">
+              Logout
+          </mat-option>
+
+          </mat-select>
+          account_circle
+          </span>
+          My Profile
+      </mat-nav-list>
+     
+        
+    </mat-sidenav>
+  
+    <mat-sidenav-content fxFlex fxFlexAlign="center center">
+      <mat-toolbar color="primary" >
+        <div fxHide.gt-xs>
+          <button mat-button color="warn" (click)="sidenav.toggle()">
+          <mat-icon >Options</mat-icon>
+        </button></div>
+        
+
+
+         <!-- User page / Settings / Likes / Logout -->
+        <div  *ngIf="logged" mat-list-item class="material-icons"   fxLayoutAlign="center center"  fxHide.xs>
+          <mat-select fxLayoutAlign="center center">
+            <br>
+            <p fxLayoutAlign="center center"><mat-icon >apps</mat-icon></p>
+            <br>
+            <p fxLayoutAlign="start">{{currentUser.firstName}}</p>
+            <br>
+            <mat-label>Profile settings: </mat-label>
+            <mat-option fxLayoutAlign="center center" routerLink="settings" value ="setting">Settings</mat-option>
+            <br>
+            <mat-label>Users likings: </mat-label>
+            <mat-option fxLayoutAlign="center center" routerLink="favorites" value ="favorites">Likes</mat-option>
+            <br>
+            <mat-option fxLayoutAlign="center center" (click)="logout()"  value ="logout">Logout</mat-option>
+
+          </mat-select>
+          supervisor_account
+        </div>
+
+         <!-- HOME/ABOUT/SERVICES/REGISTER/LOGIN... Register and login only show if not logged and other pages redirect to login if not logged -->
+        <div fxFlex fxLayoutAlign="start"  fxHide.xs> 
+          <a *ngIf="logged == false" mat-raised-button color="warn"  routerLink="/login">Home</a>
+          <a *ngIf="logged == true" mat-raised-button color="accent"  routerLink="">Home</a>
+          <a *ngIf="logged == false" mat-raised-button color="warn"  routerLink="/login" >About</a>
+          <a *ngIf="logged == true"mat-raised-button color="accent"   routerLink="/about">About</a>
+
+          <a *ngIf="logged == false" mat-raised-button color="warn"  routerLink="/login" >Services</a>
+          <a *ngIf="logged == true" mat-raised-button color="accent"   routerLink="/search">Services</a>
+          
+        </div>
+        <div fxFlex fxLayoutAlign="end"  fxHide.xs>  
+          <a *ngIf="logged == false" mat-raised-button color="accent"   routerLink="/signup">Register</a>
+          <a *ngIf="logged == false" mat-raised-button color="accent"   routerLink="/login">Login</a>
+        </div>
+        
+          
+       
+      </mat-toolbar>
+      <mat-toolbar color="primary" >
+ <!-- Logo on the middle of the screen -->
+        <div fxFlex fxLayoutAlign="center center">
+          <mat-card-title >SINGITRIP</mat-card-title>
+        </div>
+        
+          
+       
+      </mat-toolbar>
+      
+      <router-outlet></router-outlet>
+      
+      
+    </mat-sidenav-content>
+   
+  </mat-sidenav-container>  
+ <!-- Background stays on the homepage only -->
+  <section *ngIf="route.children.length === 0" fxLayoutAlign="center"> 
+    <img  src="../assets/img/beach.png" style="width: 100%;height:100%;">
+  </section>
+  
+  
